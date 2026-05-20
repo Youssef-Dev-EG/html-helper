@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     checkUserDailyStreak();
 });
 
+// فحص إجابة السؤال وتحديد الاختيار
 function checkAnswer(questionNum, answer, buttonClicked) {
     userAnswers[questionNum] = answer;
     const parent = buttonClicked.parentElement;
@@ -23,6 +24,7 @@ function checkAnswer(questionNum, answer, buttonClicked) {
     updateBotMessage("🤔", "مممم.. أراك اخترت إجابة! اضغط على 'إرسال الإجابات' لنرى النتيجة!");
 }
 
+// إنهاء الاختبار وفحص النتائج
 function finishQuiz() {
     let finalScore = 0;
     if (userAnswers[1] === 'h1') finalScore++;
@@ -47,6 +49,7 @@ function finishQuiz() {
     }
 }
 
+// فتح المستوى الثاني مباشرة
 function unlockLevel2Directly() {
     const box = document.getElementById("level-2-box");
     const badge = document.getElementById("lvl-2-badge");
@@ -61,6 +64,7 @@ function unlockLevel2Directly() {
     }
 }
 
+// تحديث واجهة الإحصائيات
 function updateStatsUI() {
     document.getElementById("user-xp").innerText = xp;
     if(badges.length > 0) {
@@ -68,6 +72,7 @@ function updateStatsUI() {
     }
 }
 
+// تغيير لون الكائن الفضائي
 function changeAlienColor(bodyColor) {
     const alienBody = document.getElementById("alien-body");
     if (alienBody) alienBody.style.fill = bodyColor;
@@ -75,6 +80,7 @@ function changeAlienColor(bodyColor) {
     updateBotMessage("🎨", "واو! ألوان جميلة! أنت فنان حقيقي!");
 }
 
+// بدء درس المتغيرات
 function startLesson3() {
     let kidName = prompt("مرحباً بك! ما هو اسمك يا بطل؟");
     const output = document.getElementById("lesson3-output");
@@ -84,69 +90,66 @@ function startLesson3() {
     }
 }
 
-// ميزة 2: الوضع الليلي والنهاري
+// تبديل الوضع الليلي والنهاري
 function toggleKidsCodeTheme() {
     document.body.classList.toggle("light-mode-active");
 }
 
-// ميزة 3: تأثير الـ Confetti والاحتفال
+// تأثير الاحتفال بالحلوى الملونة
 function launchCelebration() {
     const canvas = document.getElementById("celebration-canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth; 
     canvas.height = window.innerHeight;
     let particles = [];
-    const colors = ["#deff9a", "#2ed573", "#6c5ce7", "#a29bfe", "#74b9ff"];
-    for (let i = 0; i < 50; i++) {
+    const colors = ["#deff9a", "#2ed573", "#6c5ce7", "#a29bfe", "#74b9ff", "#ff7675"];
+    
+    for (let i = 0; i < 60; i++) {
         particles.push({ 
-            x: Math.random()*canvas.width, 
-            y: Math.random()*canvas.height-canvas.height, 
-            r: Math.random()*6+2, 
-            color: colors[Math.floor(Math.random()*colors.length)],
-            vy: Math.random()*3+2
+            x: Math.random() * canvas.width, 
+            y: Math.random() * canvas.height - canvas.height, 
+            r: Math.random() * 6 + 2, 
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vy: Math.random() * 4 + 2,
+            vx: (Math.random() - 0.5) * 2
         });
     }
+    
     function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { 
             ctx.beginPath(); 
-            ctx.fillStyle=p.color; 
-            ctx.arc(p.x,p.y+=p.vy,p.r,0,Math.PI*2); 
-            ctx.fill(); 
+            ctx.fillStyle = p.color; 
+            ctx.arc(p.x += p.vx, p.y += p.vy, p.r, 0, Math.PI * 2); 
+            ctx.fill();
         });
         if(particles[0].y < canvas.height) requestAnimationFrame(draw);
     }
     draw();
 }
 
-// ميزة 3: محرك المحاكي كيدو
+// محرك المحاكي كيدو - تحديث رسالة البوت
 function updateBotMessage(emoji, message) {
     document.getElementById("bot-face").innerText = emoji;
     document.getElementById("bot-message").innerText = message;
 }
 
-// ميزة 4: لوحة تحليلات المدرس
+// لوحة تحليلات الأداء
 function generatePerformanceReport() {
     let svgProgress = Math.min(svgInteractions * 34, 100);
     let logicProgress = localStorage.getItem("kidsCodeLevel2") === "unlocked" ? 100 : 0;
+    
     document.getElementById("skill-svg-bar").style.width = svgProgress + "%";
     document.getElementById("skill-svg-pct").innerText = svgProgress + "%";
     document.getElementById("skill-logic-bar").style.width = logicProgress + "%";
     document.getElementById("skill-logic-pct").innerText = logicProgress + "%";
     
-    // تقرير نصي
-    const report = `
-    📊 تقرير الأداء الفوري:
-    ✨ إجمالي النقاط: ${xp} XP
-    🏆 الأوسمة: ${badges.length > 0 ? badges.join(", ") : "لم تحصل على أوسمة بعد"}
-    🎨 مستوى الإبداع: ${svgProgress}%
-    🧠 مستوى المنطق: ${logicProgress}%
-    `;
+    const reportText = `📊 تقرير الأداء الفوري:\n✨ إجمالي النقاط: ${xp} XP\n🏆 الأوسمة: ${badges.length > 0 ? badges.join(", ") : "لم تحصل على أوسمة بعد"}\n🎨 الإبداع: ${svgProgress}%\n🧠 المنطق: ${logicProgress}%`;
     
-    updateBotMessage("📋", "تم إنشاء التقرير! تحقق من الرسالة أعلاه.");
+    updateBotMessage("📋", reportText);
 }
 
-// ميزة 5: عداد الشعلة والـ Streak
+// عداد الشعلة والـ Streak
 function checkUserDailyStreak() {
     let count = parseInt(localStorage.getItem("kidsCode_streak")) || 1;
     document.getElementById("streak-count-text").innerText = count;
@@ -155,13 +158,14 @@ function checkUserDailyStreak() {
     }
 }
 
-// ميزة 6: ركن الأساطير وقصص الكفاح
+// ركن الأساطير وقصص الكفاح
 function triggerLegendInspiration(legendKey) {
     const story = document.getElementById("story-" + legendKey);
     if(story) {
-        story.style.display = story.style.display === "none" ? "block" : "none";
-        if(story.style.display === "block") {
-            updateBotMessage("📖", `اقرأ هذه القصة الملهمة واستمد منها الشجاعة!`);
+        const isVisible = story.style.display === "block";
+        story.style.display = isVisible ? "none" : "block";
+        if(!isVisible) {
+            updateBotMessage("📖", "اقرأ هذه القصة الملهمة واستمد منها الشجاعة!");
         }
     }
 }
