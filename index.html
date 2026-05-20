@@ -1,0 +1,149 @@
+<div class="main-container">
+  <header class="main-header">
+    <h1>🚀 منصة KidsCode التعليمية 💻</h1>
+    <p>طوّر مهاراتك مع براند Vision Design</p>
+    
+    <div class="user-stats">
+      <div class="stat-box">✨ النقاط: <span id="user-xp">0</span> XP</div>
+      <div class="stat-box">🏆 الأوسمة: <span id="user-badges">لا يوجد</span></div>
+    </div>
+    
+    <div class="streak-addon-container" style="text-align: center; margin-top: 10px;">
+      <div id="streak-badge-box" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 20px; border: 1px solid #ff9f43;">
+        <span id="streak-fire-icon" style="font-size: 20px; filter: grayscale(100%); transition: all 0.5s;">🔥</span>
+        <span style="color: #fff; font-size: 13px; font-weight: bold;">أيام الحماس المتتالية: <span id="streak-count-text" style="color: #ff9f43;">1</span> يوم</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="theme-switcher-container" style="text-align: center; margin-bottom: 20px;">
+    <button class="theme-toggle-btn" onclick="toggleKidsCodeTheme()">تبديل الوضع السحري 🌙/☀️</button>
+  </div>
+
+  <section class="level-box" id="level-1">
+    <div class="level-badge">المستوى الأول 🌟</div>
+    <h2>أساسيات تصميم المواقع (HTML & CSS)</h2>
+    <p>أجب على الاختبار لتفتح بقية الدروس والمستويات السحرية وتجمع النقاط:</p>
+    
+    <div class="quiz-container">
+      <h3>🎯 اختبار الانتقال للمستوى الثاني</h3>
+      <div class="question-block">
+        <p>1. ما هو الوسم المسؤول عن كتابة عنوان رئيسي كبير في HTML؟</p>
+        <div class="options">
+          <button class="quiz-btn" onclick="checkAnswer(1, 'h1', this)">&lt;h1&gt;</button>
+          <button class="quiz-btn" onclick="checkAnswer(1, 'p', this)">&lt;p&gt;</button>
+        </div>
+      </div>
+      <div class="question-block">
+        <p>2. أي كود يقوم بتغيير لون النص في CSS?</p>
+        <div class="options">
+          <button class="quiz-btn" onclick="checkAnswer(2, 'color', this)">color: blue;</button>
+          <button class="quiz-btn" onclick="checkAnswer(2, 'font', this)">font-size: 20px;</button>
+        </div>
+      </div>
+      <button id="submit-quiz-btn" onclick="finishQuiz()">إرسال الإجابات 🚀</button>
+      <div id="quiz-result"></div>
+    </div>
+  </section>
+
+  <section class="level-box locked" id="level-2-box">
+    <div class="level-badge locked-badge" id="lvl-2-badge">المستوى الثاني 🔒 مغلق</div>
+    
+    <div id="level-2-content" style="display: none;">
+      <div class="unlocked-animation">🎉 مبروك تم فتح مستوى المحترفين! (+50 XP)</div>
+      
+      <div class="lesson-zone" id="lesson-2">
+        <h3>الدرس الثاني: سحر الـ SVG والألوان 🎨</h3>
+        <p>الـ SVG هو رسم بالأكواد. اضغط لتغيير لون الكائن الفضائي برمجياً:</p>
+        
+        <svg width="100" height="100" viewBox="0 0 100 100" id="alien-svg">
+          <circle cx="50" cy="40" r="25" fill="#a29bfe" id="alien-body" />
+          <circle cx="50" cy="40" r="8" fill="#2d3436" />
+          <path d="M 40 55 Q 50 65 60 55" stroke="#2d3436" stroke-width="3" fill="none" />
+          <circle cx="50" cy="5" r="5" fill="#ff7675" id="alien-antenna" />
+        </svg>
+        
+        <div class="controls">
+          <button class="action-btn purple" onclick="changeAlienColor('#a29bfe')">بنفسجي 💜</button>
+          <button class="action-btn green" onclick="changeAlienColor('#2ed573')">أخضر 💚</button>
+        </div>
+      </div>
+
+      <div class="lesson-zone" id="lesson-3">
+        <h3>الدرس الثالث: صناديق الذاكرة (Variables) 📦</h3>
+        <p>هنا يتعلم الطفل كيف يحفظ المتصفح اسمه باستخدام الـ let والـ prompt:</p>
+        <button class="action-btn" onclick="startLesson3()">اضغط لتجربة صندوق الذاكرة 🤖</button>
+        <div id="lesson3-output" class="output-box"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="dashboard-addon" style="margin-top: 25px; padding: 20px; background: #222; border: 2px solid #2ed573; border-radius: 15px;">
+    <h3 style="color: #2ed573; margin-bottom: 15px; text-align: center;">📊 لوحة تحليلات الأداء (خاصة بالمعلم وولي الأمر)</h3>
+    <div class="analytics-grid" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+      <div class="skill-bar-wrapper">
+        <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;">
+          <span>🎨 الإبداع البصري وتصميم الـ SVG:</span>
+          <span id="skill-svg-pct">0%</span>
+        </div>
+        <div style="background: #333; height: 12px; border-radius: 10px; overflow: hidden;">
+          <div id="skill-svg-bar" style="background: #74b9ff; width: 0%; height: 100%; transition: width 1s ease;"></div>
+        </div>
+      </div>
+      <div class="skill-bar-wrapper">
+        <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;">
+          <span>🧠 التفكير المنطقي وحل المشكلات:</span>
+          <span id="skill-logic-pct">0%</span>
+        </div>
+        <div style="background: #333; height: 12px; border-radius: 10px; overflow: hidden;">
+          <div id="skill-logic-bar" style="background: #2ed573; width: 0%; height: 100%; transition: width 1s ease;"></div>
+        </div>
+      </div>
+    </div>
+    <button class="action-btn" style="width: 100%; margin-top: 20px; background: #6c5ce7; border: none; color: #fff; padding: 10px; border-radius: 8px; font-weight: bold;" onclick="generatePerformanceReport()">تحديث واستخراج تقرير الأداء الفوري 📋</button>
+  </div>
+
+  <div class="legends-addon" style="margin-top: 30px; padding: 25px; background: #1b1b1b; border: 2px solid #deff9a; border-radius: 20px;">
+    <h2 style="color: #deff9a; text-align: center; margin-bottom: 5px; font-size: 24px;">🏆 ركن أساطير البرمجة وعمالقة التكنولوجيا</h2>
+    <p style="color: #aaa; text-align: center; font-size: 13px; margin-bottom: 20px;">اقرأ قصص كفاح الذين غيروا العالم بأكوادهم لتصبح مثلهم!</p>
+    <div class="legends-container" style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="legend-card" onclick="triggerLegendInspiration('linus')">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="color: #74b9ff; font-size: 16px;">🐧 لينوس تورفالدس (مبتكر نظام Linux)</h3>
+          <span class="view-btn">اقرأ القصة 📖</span>
+        </div>
+        <div id="story-linus" class="legend-story" style="display: none; margin-top: 10px; border-top: 1px dashed #444; padding-top: 10px;">
+          <p style="font-size: 14px; color: #e0e0e0; line-height: 1.5;"><strong>قصة كفاحه:</strong> طالب جامعي لم يمتلك المال لشراء نظام تشغيل، فبرمج نظامه الخاص من الصفر في غرفته، وهو نظام Linux الذي يدير أسرع سيرفرات وهواتف العالم اليوم!</p>
+        </div>
+      </div>
+      <div class="legend-card" onclick="triggerLegendInspiration('mark')">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="color: #2ed573; font-size: 16px;">🌐 مارك زوكربيرج (مؤسس Facebook)</h3>
+          <span class="view-btn">اقرأ القصة 📖</span>
+        </div>
+        <div id="story-mark" class="legend-story" style="display: none; margin-top: 10px; border-top: 1px dashed #444; padding-top: 10px;">
+          <p style="font-size: 14px; color: #e0e0e0; line-height: 1.5;"><strong>قصة كفاحه:</strong> بدأ بشبكة تواصل صغيرة لعائلته وعيادة والده، ثم طور مهاراته في الجامعة لبناء موقع Facebook لزملائه ليربط مليارات البشر لاحقاً.</p>
+        </div>
+      </div>
+      <div class="legend-card" onclick="triggerLegendInspiration('bill')">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="color: #ffdd59; font-size: 16px;">💻 بيل جيتس (مؤسس Microsoft)</h3>
+          <span class="view-btn">اقرأ القصة 📖</span>
+        </div>
+        <div id="story-bill" class="legend-story" style="display: none; margin-top: 10px; border-top: 1px dashed #444; padding-top: 10px;">
+          <p style="font-size: 14px; color: #e0e0e0; line-height: 1.5;"><strong>قصة كفاحه:</strong> كان يبرمج ليلاً في المدرسة والجميع نائمون، واجه الفشل في أول شركة، لكنه استمر حتى صنع نظام Windows المشغل لكل الكمبيوترات اليوم.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="kids-bot-simulator" class="kids-bot-container">
+    <div class="bot-avatar" id="bot-face">🤖</div>
+    <div class="bot-bubble">
+      <h4 id="bot-name">المساعد الذكي كيدو:</h4>
+      <p id="bot-message">أهلاً بك يا بطل! أنا هنا لأساعدك.. ابدأ بحل اختبار المستوى الأول لنكتشف قوتك! 💪</p>
+    </div>
+  </div>
+</div>
+
+<canvas id="celebration-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
